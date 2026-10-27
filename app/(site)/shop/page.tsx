@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   ArrowRight,
   ArrowUpRight,
+  Search,
 } from "lucide-react"
 import { Instrument_Serif } from "next/font/google"
 import { cn } from "@/lib/utils"
@@ -22,6 +23,7 @@ import {
 import { Icon } from "@iconify/react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Field } from "@/components/ui/field"
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -32,9 +34,13 @@ const instrumentSerif = Instrument_Serif({
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All")
   const listingRef = useRef<HTMLDivElement>(null)
+  const [search, setSearch] = useState("")
 
-  const filteredProducts =
-    activeCategory === "All"
+  const filteredProducts = search.trim()
+    ? PRODUCTS.filter((p) =>
+        p.name.toLowerCase().includes(search.trim().toLowerCase())
+      )
+    : activeCategory === "All"
       ? PRODUCTS
       : PRODUCTS.filter((p) => p.category === activeCategory)
 
@@ -91,6 +97,25 @@ export default function ShopPage() {
           </div>
         </div>
       </section>
+
+      <div className="mx-auto mt-17 max-w-6xl">
+        <Field>
+          <InputGroup className="h-10">
+            <InputGroupInput
+              id="my-search"
+              type="search"
+              placeholder="Search something product ..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value)
+              }}
+            ></InputGroupInput>
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+          </InputGroup>
+        </Field>
+      </div>
 
       <div className="pt-8">
         <ProductCategory

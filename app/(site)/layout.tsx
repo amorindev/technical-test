@@ -3,6 +3,8 @@ import type { NavigationSection } from "@/components/shadcn-space/blocks/hero-01
 import Footer from "@/components/shadcn-space/blocks/footer-01/footer"
 import { CartProvider } from "@/components/cart-context"
 import { AnnouncementBar } from "@/components/announcement-bar"
+import BackToTop from "@/components/back-to-top"
+import MouseFollower from "@/components/mouse-follower"
 
 const navigationData: NavigationSection[] = [
   {
@@ -34,7 +36,9 @@ export default function SiteLayout({
       <AnnouncementBar />
       <Header navigationData={navigationData} />
       <main>{children}</main>
+      <BackToTop />
       <Footer />
+      <MouseFollower/>
     </>
   )
 }
